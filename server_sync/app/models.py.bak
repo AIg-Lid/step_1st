@@ -1,0 +1,179 @@
+# -*- coding: utf-8 -*-
+"""
+数据模型定义模块
+
+使用 Pydantic 定义所有请求/响应的数据模型，
+确保数据校验、序列化和文档自动生成。
+"""
+
+from __future__ import annotations
+
+from enum import Enum
+from typing import Optional
+
+from pydantic import BaseModel, Field, field_validator
+
+
+class SlideStyle(str, Enum):
+    """PPT风格枚举。"""
+
+    BUSINESS = "business"  # 商务蓝
+    TECH = "tech"  # 科技青
+    CREATIVE = "creative"  # 活力橙粉
+
+
+class SlideType(str, Enum):
+    """幻灯片类型枚举。"""
+
+    COVER = "cover"  # 封面页
+    CONTENT = "content"  # 内容页
+    ENDING = "ending"  # 结尾页
+
+
+# ── 请求模型 ──────────────────────────────────────────────────────
+
+
+class GenerateRequest(BaseModel):
+    """
+    PPT生成请求模型。
+
+    Attributes:
+        prompt: PPT主题描述，用户输入的核心需求
+        pages: 期望生成的幻灯片页数（3-30）
+        style: PPT风格选择
+    """
+
+    prompt: str = Field(
+        ...,
+        min_length=2,
+        max_length=2000,
+        description="PPT主题描述，例如：人工智能在医疗领域的应用",
+        examples=["人工智能在医疗领域的应用"],
+    )
+    pages: int = Field(
+        default=10,
+        ge=3,
+        le=30,
+        description="期望生成的幻灯片页数",
+        examples=[10],
+    )
+    style: SlideStyle = Field(
+        default=SlideStyle.BUSINESS,
+        description="PPT风格选择：business(商务蓝)、tech(科技青)、creative(活力橙粉)",
+    )
+
+    @field_validator("prompt")
+    @classmethod
+    def validate_prompt(cls, v: str) -> str:
+        """验证并清理prompt输入。"""
+        cleaned = v.strip()
+        if len(cleaned) < 2:
+            raise ValueError("主题描述至少需要2个字符")
+        return cleaned
+
+
+# ── 响应模型 ──────────────────────────────────────────────────────
+
+
+class Slide(BaseModel):
+    """
+    单张幻灯片数据模型。
+
+    Attributes:
+        slide_number: 幻灯片序号（从1开始）
+        type: 幻灯片类型（封面/内容/结尾）
+        title: 幻灯片标题
+        body: 幻灯片正文内容（可选）
+        points: 要点列表（可选）
+        background: 背景颜色/样式描述
+    """
+
+    slide_number: int = Field(
+        ...,
+        ge=1,
+        description="幻灯片序号",
+    )
+    type: SlideType = Field(
+        ...,
+        description="幻灯片类型",
+    )
+    title: str = Field(
+        ...,
+        min_length=1,
+        description="幻灯片标题",
+    )
+    body: Optional[str] = Field(
+        default=None,
+        description="幻灯片正文内容",
+    )
+    points: list[str] = Field(
+        default_factory=list,
+        description="要点列表",
+    )
+    background: str = Field(
+        default="",
+        description="背景颜色或样式描述",
+    )
+
+
+class GenerateResponse(BaseModel):
+    """
+    PPT生成响应模型。
+
+    Attributes:
+        slides: 生成的幻灯片数组
+        total_pages: 总页数
+        style: 使用的风格
+    """
+
+    slides: list[Slide] = Field(
+        ...,
+        description="生成的幻灯片数组",
+    )
+    total_pages: int = Field(
+        ...,
+        ge=1,
+        description="总页数",
+    )
+    style: str = Field(
+        ...,
+        description="使用的风格名称",
+    )
+
+
+class HealthResponse(BaseModel):
+    """
+    健康检查响应模型。
+
+    Attributes:
+        status: 服务状态
+        version: 应用版本号
+    """
+
+    status: str = Field(
+        default="ok",
+        description="服务状态",
+    )
+    version: str = Field(
+        default="1.0.0",
+        description="应用版本号",
+    )
+
+
+class ErrorResponse(BaseModel):
+    """
+    统一错误响应模型。
+
+    Attributes:
+        error: 错误类型
+        detail: 错误详细信息
+    """
+
+    error: str = Field(
+        ...,
+        description="错误类型标识",
+    )
+    detail: str = Field(
+        ...,
+        description="错误详细描述",
+    )
