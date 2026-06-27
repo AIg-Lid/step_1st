@@ -1,135 +1,208 @@
-# <p align="center">Auto_PPT 自动生成你的PPT</p>
+# Jeffrey_AI_step_1st
 
-<p align="center"><i>你是否厌倦了花费无尽的时间来制作乏味的演示文稿？是否希望有一个魔法工具，能够在几秒钟内为你生成令人惊叹的PPT？别担心，我们为你带来了Auto_PPT！</i></p>
+> 三合一智能办公平台 — AI 驱动的 PPT / DOCX / XLSX 生成与编辑
 
 <p align="center">
-<a href="https://github.com/limaoyi1/Auto_PPT/fork" target="blank">
-<img src="https://img.shields.io/github/forks/limaoyi1/Auto_PPT?style=for-the-badge" alt="Auto_PPT forks"/>
-</a>
-
-<a href="https://github.com/limaoyi1/Auto_PPT/stargazers" target="blank">
-<img src="https://img.shields.io/github/stars/limaoyi1/Auto_PPT?style=for-the-badge" alt="Auto_PPT stars"/>
-</a>
-<a href="https://github.com/limaoyi1/Auto_PPT/pulls" target="blank">
-<img src="https://img.shields.io/github/issues-pr/limaoyi1/Auto_PPT?style=for-the-badge" alt="Auto_PPT pull-requests"/>
-</a>
-<a href='https://github.com/limaoyi1/Auto_PPT/blob/main/LICENSE'>
-<img src='https://img.shields.io/github/license/limaoyi1/Auto_PPT?&label=Latest&style=for-the-badge' alt="Auto_PPT LICENSE">
-</a>
-<a href='https://github.com/limaoyi1/Auto_PPT/releases'>
-<img src='https://img.shields.io/github/release/limaoyi1/Auto_PPT?&label=Latest&style=for-the-badge' alt="Auto_PPT releases">
-</a>
+  <a href="https://gitee.com/Ldi876/step_1st"><img src="https://img.shields.io/badge/Gitee-step__1st-red?style=for-the-badge" alt="Gitee"></a>
+  <a href="https://github.com/AIg-Lid/step_1st"><img src="https://img.shields.io/badge/GitHub-step__1st-black?style=for-the-badge" alt="GitHub"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="License"></a>
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.9+-green?style=for-the-badge" alt="Python"></a>
+  <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-0.115+-009688?style=for-the-badge" alt="FastAPI"></a>
 </p>
 
+---
 
-[//]: # (https://github.com/ikatyang/emoji-cheat-sheet 表情仓库)
+## 项目简介
 
-## 🔥 [English Guide](./Readme.en.md)
+Jeffrey_AI_step_1st 是一个基于 FastAPI + DeepSeek（兼容 OpenAI 接口）的三合一智能办公平台，支持通过自然语言生成和修改 PPT、Word 文档、Excel 表格。内置 AI 文档助手（AgentScope 2.0 驱动），用户可通过对话直接操作文档内容并实时渲染。
 
-> please visit [English Guide](./Readme.en.md)
+### 核心能力
 
-## 🎞️ 项目介绍 
+| 模块 | 功能 | 说明 |
+|------|------|------|
+| **PPT 生成** | 两步生成（大纲→内容） | 输入主题，AI 生成结构化大纲，再逐页填充内容 |
+| **DOCX 写作** | 结构化文档导出 | 支持 heading1/2/3、paragraph、bullet 等块级格式 |
+| **XLSX 表格** | 数据表格导出 | 自定义表头 + 数据行，带品牌配色样式 |
+| **AI 助手** | 自然语言修改文档 | 对话式交互，Agent 返回结构化 JSON 动作直接操作文档 |
 
-> 使用 gpt-3.5-turbo 和 pptx 一站式生成指定主题的PPTX文件。 \
-> ![img.png](pptx_static/static/img2.png)
-> 以下是通过项目生成的原始示例：
-> ![img.png](pptx_static/static/img.png)
+---
 
-## ⭐ 感谢支持
+## 技术栈
 
-> 通过给项目点亮星星，您展示了对我们的认可，并帮助我们在社区中获得更多关注。\
-> 这激励我们不断改进和开发新功能，以提升您使用 Auto_PPT 的体验。
+| 层级 | 技术 | 说明 |
+|------|------|------|
+| **后端框架** | FastAPI 0.115+ | 异步 API，自动生成 OpenAPI 文档 |
+| **AI 引擎** | AgentScope 2.0 | 阿里巴巴 Agent 框架，支持 DeepSeek 模型 |
+| **大模型** | DeepSeek Chat | 通过 OpenAI 兼容接口调用 |
+| **向量数据库** | Milvus Lite 3.0 | 轻量级嵌入式向量库（无 Docker 依赖） |
+| **前端** | 原生 HTML + JS | 单页应用，含 Agent 聊天面板与动作执行器 |
+| **部署** | Nginx + Uvicorn | Nginx 反向代理，Uvicorn 运行 FastAPI |
 
-> 鸣谢 [Miraitowa-wsy](https://github.com/Miraitowa-wsy) 老板的赞助.
+---
 
-## 🧲 项目优势
+## 项目结构
 
-> 🌟 不再费心思：只需输入标题，Auto_PPT将立即为你创造一份全新的PPTX，无需任何额外努力！
-
-> 🎩 魔法背后的秘密：我们借助强大的gpt-3.5-turbo-16k接口，确保每次生成的PPT大纲都稳定而令人印象深刻。
-
-> 💡 创造性使用md格式：我们独特地运用md格式多步链式地生成PPT文本，使PPTX制作变得更加容易和稳定。告别格式困扰，让你专注于内容的创作！
-
-> 🔗 在v1.0使用langchain对程序进行优化和重构,感谢langchain可以让代码变得简单,轻松和美观!
-
-> 🖼️ 风景图插图：我们与Unsplash合作，提供最精美的插图，让你的PPT瞬间焕发生机与美感。
-
-> 🔒 安全本地部署：如果你担心数据安全问题，不用担心！Auto_PPT支持本地部署，只需添加你的OpenAI API密钥和Unsplash API密钥信息即可。
-
-## 🎨 部署指南
-
-> 项目运行需要python环境 ，推荐python3以上，作者使用的是python3.9
-
-> 1. 创建虚拟环境
-
-```bash
-   python -m venv venv
+```
+step_1st/
+├── server_sync/                 # 服务器最新代码
+│   ├── app/
+│   │   ├── main.py              # FastAPI 应用入口
+│   │   ├── config.py            # 配置管理（pydantic-settings）
+│   │   ├── models.py            # 数据模型定义
+│   │   ├── prompts.py           # AI 提示词模板
+│   │   ├── themes.py            # PPT 主题配色
+│   │   ├── routers/
+│   │   │   ├── generate.py      # PPT 生成接口
+│   │   │   ├── export_routes.py # DOCX/XLSX 导出接口
+│   │   │   └── agent_routes.py  # AI 文档助手接口
+│   │   └── services/
+│   │       └── ppt_generator.py # PPT 生成服务
+│   ├── index.html               # 前端页面（含 Agent 聊天面板）
+│   ├── requirements.txt         # Python 依赖
+│   ├── run.py                   # 启动脚本
+│   └── .env.example             # 环境变量模板
+├── chain/                       # LangChain 链式调用（旧版）
+├── generation/                  # PPT 大纲生成（旧版）
+├── mdtree/                      # Markdown 解析与树结构
+├── pptx_static/                 # PPT 背景图与图标资源
+├── templates/                   # 前端构建产物
+└── Readme.md
 ```
 
-> 2. 激活虚拟环境
+---
+
+## API 接口
+
+### PPT 生成
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `POST` | `/api/generate_outline` | 生成 PPT 大纲（章节 + 要点） |
+| `POST` | `/api/generate_content` | 根据大纲生成完整内容 |
+| `POST` | `/api/export_html` | 导出 HTML 格式预览 |
+| `GET` | `/api/health` | 健康检查 |
+
+### 文档导出
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `POST` | `/api/export_docx` | 生成并下载 DOCX 文件 |
+| `POST` | `/api/export_xlsx` | 生成并下载 XLSX 文件 |
+
+### AI 文档助手
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `POST` | `/api/chat_agent` | Agent 对话，返回自然语言 + 结构化动作 |
+
+**Agent 动作类型**：
+
+| 文档类型 | 支持动作 |
+|----------|----------|
+| PPT | 修改标题、章节、要点、子要点；增删章节/要点/子要点 |
+| DOCX | 追加文本（段落/标题/列表）、全文替换 |
+| XLSX | 设置单元格值、添加数据行 |
+
+---
+
+## 快速开始
+
+### 1. 环境准备
+
+- Python 3.9+
+- DeepSeek API Key（或任何 OpenAI 兼容接口）
+
+### 2. 安装依赖
 
 ```bash
-   . venv/bin/activate
-```
-
-> 3. 安装要求的python组件
-
-```bash
+cd server_sync
+python -m venv venv
+source venv/bin/activate    # Linux/Mac
+# venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 ```
 
-> 4. 在 config.ini 添加你的api key 
+### 3. 配置环境变量
 
-> 5. 修改./readconfig/mycofig.py 的base 绝对路径 使其为config.ini的文件夹路径
+创建 `.env` 文件：
 
-> 6. 运行项目
-
-> 运行
-```bash
-python application.py
+```env
+OPENAI_API_KEY=sk-your-deepseek-api-key
+OPENAI_BASE_URL=https://api.deepseek.com/v1
+OPENAI_MODEL=deepseek-chat
+APP_PORT=8000
+DEBUG=True
 ```
 
-> 或者 (生产模式) 需要在 类linux 环境运行以下命令
+### 4. 启动服务
 
 ```bash
-gunicorn -b 0.0.0.0:5000 --log-level=debug --threads 4 app:application > gunicorn.log 2>&1 &
+python run.py
+# 或
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-> 7. 访问 http://127.0.0.1:5000
+### 5. 访问
 
-## 💡 下一个版本
+- 前端页面：http://127.0.0.1:8000
+- API 文档：http://127.0.0.1:8000/docs（DEBUG 模式下可用）
 
-> 2023/7/3 | v0.5.1 | 一个创意的诞生 | 已经完成 ✔️
->
+---
 
-| 蓝图     | 存在问题          | 完成情况       |
-|--------|---------------|------------|
-| 部署线上服务 | ui过于简陋        | 已完成        |
-| 优化生成格式 | 格式过于单一        | 已经优化段落间距   |
-| 优化生成速度 | openaiapi接口太慢 | 已经优化服务启动方式 |
+## 部署
 
-> 2023/7/6 | v1.0 | 用langChain 重构代码 | 已经完成 ✔
->
+### Nginx 反向代理配置
 
-| 蓝图              | 存在问题               | 完成情况     |
-|-----------------|--------------------|----------|
-| 优化生成内容          | 生成内容不够详细和准确        | 推迟到下一个版本 |
-| 优化生成步骤          | 单一步骤难以一步完成一个优质的PPT | 7.14已完成  |
-| 使用langChain优化项目 | 优化为链式调用            | 7.14已完成  |
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
 
+    # 前端静态页面
+    location / {
+        root /var/www/slideforge-ai;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+        add_header Cache-Control "no-store, no-cache, must-revalidate";
+    }
 
-> 2023/7/15 | v1.5 | 下一个版本需要完成的内容 | 开始 🧭
-> 
-| 蓝图             | 存在问题           | 完成情况   |
-|----------------|----------------|--------|
-| 兼容更多md格式       | md的格式工作量很大     | 刚开始    |
-| 选用一种前端语言重构前端代码 | 作为后端工程师对前端的不熟悉 | 已经完成 ✔ |
-| 优化主题的效果        | 没有美感的ppt模板参考   | 刚开始    |
+    # API 反向代理
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
 
-## 🌟 Star History
+### 生产模式运行
 
-<br>
+```bash
+gunicorn -b 0.0.0.0:8000 --threads 4 app.main:app > gunicorn.log 2>&1 &
+```
 
-[![Star History Chart](https://api.star-history.com/svg?repos=limaoyi1/Auto_PPT&type=Timeline)](https://star-history.com/#limaoyi1/Auto_PPT&Timeline)
+---
 
-</br>
+## 版本历程
+
+| 版本 | 日期 | 内容 |
+|------|------|------|
+| v0.5 | 2023.07 | Auto_PPT 初版，gpt-3.5 生成 PPT |
+| v1.0 | 2023.07 | LangChain 重构，链式调用生成 |
+| v1.5 | 2023.07 | 前端重构，多 MD 格式支持 |
+| v2.0 | 2026.06 | 升级为 Jeffrey_AI 三合一平台，FastAPI 后端 |
+| v2.1 | 2026.06 | 集成 AgentScope 2.0，AI 助手直接修改文档 |
+| v2.2 | 2026.06 | 接入 Milvus Lite 向量数据库，支持 RAG 检索 |
+
+---
+
+## 仓库地址
+
+- **Gitee**：https://gitee.com/Ldi876/step_1st
+- **GitHub**：https://github.com/AIg-Lid/step_1st
+
+---
+
+## License
+
+[MIT License](./LICENSE)
